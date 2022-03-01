@@ -1,0 +1,42 @@
+<app-header></app-header>
+<div class="container-fluid form-group" style="width: max-content">
+  <div class="row justify-content-center" style="margin-top: 100%">
+    <div class="row justify-content-center" style="margin-top: 7%">
+      <div class="col-md-auto">
+        <button class="btn btn-secondary" id="listBut" style="width: 250px" (click)="toList()"> Acceder a Listado </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!islog" class="row justify-content-center" style="margin-top: 7%">
+    <div class="col-md-auto">
+      <button class="btn btn-secondary" id="registBut" style="width: 250px" (click)="toRegister()"> Registrarse </button>
+    </div>
+  </div>
+  <div *ngIf="!islog" class="row justify-content-center" style="margin-top: 7%">
+    <div class="col-md-auto">
+      <button class="btn btn-secondary" id="loginBut" style="width: 250px" (click)="toLogin()"> Login </button>
+    </div>
+  </div>
+  <div *ngIf="islog" class="row justify-content-center" style="margin-top: 7%">
+    <div class="col-md-auto">
+      <button class="btn btn-secondary" id="perfilconfBut" style="width: 250px" (click)="toMiPerfil()"> Mi Perfil </button>
+    </div>
+  </div>
+  <div *ngIf="islog" class="row justify-content-center" style="margin-top: 7%">
+    <div class="col-md-auto">
+      <button class="btn btn-secondary" id="ofertaBut" style="width: 250px" (click)="toOferta()"> Crear Oferta </button>
+    </div>
+  </div>
+  <div *ngIf="islog && isAdmin" class="row justify-content-center" style="margin-top: 7%">
+    <div class="col-md-auto">
+      <button class="btn btn-secondary" id="statsBut" style="width: 250px" (click)="toStats()"> Estadísticas </button>
+    </div>
+  </div>
+  <div *ngIf="islog && isAdmin" class="row justify-content-center" style="margin-top: 7%">
+    <div class="col-md-auto">
+      <button class="btn btn-secondary" id="usersBut" style="width: 250px" (click)="toGestionUsers()"> Gestionar Usuarios </button>
+    </div>
+  </div>
+
+</div>
+

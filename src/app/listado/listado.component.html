@@ -1,0 +1,127 @@
+<app-header></app-header>
+<br>
+<br>
+<div class="row justify-content-center">
+  <div class="col-md-auto" >
+    <div class="btn-group btn-group-toggle">
+      <label class="btn btn-info" ngbButtonLabel>
+        <input type="checkbox" ngbButton [(ngModel)]="extrafil.universidad"> Universidad
+      </label>
+      <label class="btn btn-info" ngbButtonLabel>
+        <input type="checkbox" ngbButton [(ngModel)]="extrafil.ayuntamiento"> Ayuntamiento
+      </label>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row justify-content-center">
+  <div class="col-md-auto" >
+    <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="locfil">
+      <label ngbButtonLabel class="btn-info">
+        <input ngbButton type="radio" value="Zaragoza"> Zaragoza
+      </label>
+      <label ngbButtonLabel class="btn-info">
+        <input ngbButton type="radio" value="Huesca"> Huesca
+      </label>
+      <label ngbButtonLabel class="btn-info">
+        <input ngbButton type="radio" value="Teruel"> Teruel
+      </label>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center" style="margin-top: 7%">
+  <div class="col-md-auto">
+    <button class="btn btn-secondary" type="submit" (click)="getListado()"> Buscar </button>
+  </div>
+</div>
+<br>
+<br>
+
+<p *ngIf="nores">No se han encontrado resultados</p>
+<ngb-accordion [closeOthers]="true" activeIds="static-1" style="align-content: center;width: 50%">
+  <ngb-panel *ngFor="let item of listado | slice: (page-1) * pageSize : page * pageSize" title="{{item.denominacion}}" style="alignment: center;width: 80%" >
+    <ng-template ngbPanelContent>
+      <div class="row" style="margin-left: 10%">
+      <div class="col-md-5" >
+        <label class="input-group-label">Puesto :<span style="color: crimson">{{item.denominacion}}</span>
+          </label>
+      </div>
+      <div class="col-md-5">
+        <label class="input-group-label">Convocante:<span style="color: crimson">{{item.convocante}}</span>
+        </label>
+      </div>
+      </div>
+
+      <div class="row" style="margin-left: 10%">
+        <div class="col-md-5">
+          <label class="input-group-label">Plazas :<span style="color: crimson">{{item.plazas}}</span>
+          </label>
+        </div>
+        <div class="col-md-5">
+          <label class="input-group-label">Tipo:<span style="color: crimson">{{item.type}}</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="row" style="margin-left: 10%">
+        <div class="col-md-5">
+          <label class="input-group-label">Inicio plazo presentación :<span style="color: crimson">{{item.f_inicioPresentacion}}</span>
+          </label>
+        </div>
+        <div class="col-md-5">
+          <label class="input-group-label">Fin plazo presentación:<span style="color: crimson">{{item.f_finPresentacion}}</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="row" style="margin-left: 10%">
+        <div class="col-md-5">
+          <label class="input-group-label">Contacto :<span style="color: crimson">{{item.contacto}}</span>
+          </label>
+        </div>
+        <div class="col-md-5">
+          <span>Url: </span><a href="{{item.url}}">Enlace</a>
+        </div>
+      </div>
+
+      <div class="row"  style="margin-left: 10%">
+        <div class="col-md-5">
+          <label class="input-group-label">Fuente :<span style="color: crimson">{{item.fuente}}</span>
+          </label>
+        </div>
+        <div class="col-md-5">
+          <label class="input-group-label">Publicado:<span style="color: crimson">{{item.f_publicacion}}</span>
+          </label>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+  <ngb-pagination *ngIf="listado_len > 0"[collectionSize]="listado_len" [(page)]="page" [boundaryLinks]="true" style="margin-left: auto;margin-right: auto">
+    <ng-template ngbPaginationPages let-page let-pages="pages">
+      <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+        <div class="form-group d-flex flex-nowrap px-2">
+          <label
+            id="paginationInputLabel"
+            for="paginationInput"
+            class="col-form-label mr-2 ml-1"
+          >Page</label>
+          <input #i
+                 type="text"
+                 inputmode="numeric"
+                 pattern="[0-9]*"
+                 class="form-control custom-pages-input"
+                 id="paginationInput"
+                 [value]="page"
+                 (keyup.enter)="selectPage(i.value)"
+                 (blur)="selectPage(i.value)"
+                 (input)="formatInput($any($event).target)"
+                 aria-labelledby="paginationInputLabel paginationDescription"
+                 style="width: 2.5rem"
+          />
+          <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                  of {{pages.length}}</span>
+        </div>
+      </li>
+    </ng-template>
+  </ngb-pagination>

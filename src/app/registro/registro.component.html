@@ -1,0 +1,79 @@
+<app-header></app-header>
+<div class="container-fluid form-group" style="width: max-content">
+        <div class="row justify-content-center" style="margin-top: 20%">
+          <div class="col-4">
+          </div>
+          <div class="col-md-auto">
+            <label class="input-group-label">Nombre de usuario <span style="color: crimson">*</span>
+              <br>
+              <input class="form-control" type="text" placeholder="Nombre de usuario" name="user" [(ngModel)]="user"  required></label>
+            <span *ngIf="showAlreadyExists" style="color: crimson">
+               <br> Nombre de usurio ya en uso
+          </span>
+          </div>
+        </div>
+        <div>
+      </div>
+      <div class="row justify-content-center" style="margin-top: 7%">
+        <div class="col-4">
+        </div>
+        <div class="col-md-auto">
+        <label class="input-group-label">Email <span style="color: crimson"></span>
+          <br>
+          <input class="form-control" type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="this.email">
+        </label>
+        </div>
+      </div>
+      <div class="row justify-content-center" style="margin-top: 7%">
+        <div class="col-4">
+        </div>
+        <div class="col-md-auto">
+          <label class="input-group-label">Contraseña <span style="color: crimson">*</span>
+            <br>
+            <input class="form-control"type="password" placeholder="Contraseña" name="pass" [(ngModel)]="password" required>
+          </label>
+        </div>
+      </div>
+      <div class="row justify-content-center" style="margin-top: 7%">
+        <div class="col-md-auto">
+          <label class="input-group-label">Repita Contraseña <span style="color: crimson">*</span>
+            <br>
+            <input class="form-control" type="password" placeholder="Repetir contraseña" name="passRepe" [(ngModel)]="repepassword" required>
+          </label>
+        </div>
+      </div>
+      <div class="row justify-content-center" style="margin-top: 7%">
+        <div class="col-md-auto">
+          <button class="btn btn-secondary" type="submit" id="registBut" (click)="registrar()"> Registrarse </button>
+        </div>
+      </div>
+      <div *ngIf="showSuccess" class="row justify-content-center" style="margin-top: 7%">
+        <div class="col-md-auto">
+        <span style="color: green">
+          Registrado con éxito.
+        </span>
+        </div>
+      </div>
+      <div *ngIf="showPassError" class="row justify-content-center" style="margin-top: 7%">
+        <div class="col-md-auto">
+            <span style="color: crimson">
+              Las contraseñas no coinciden
+            </span>
+        </div>
+      </div>
+      <div *ngIf="showReqError" class="row justify-content-center" style="margin-top: 7%">
+        <div class="col-md-auto">
+                <span style="color: crimson">
+                  Los campos con * son obligatorios
+                </span>
+        </div>
+      </div>
+      <div *ngIf="showOtherError" class="row justify-content-center" style="margin-top: 7%">
+        <div class="col-md-auto">
+                    <span style="color: crimson">
+                     Error al registrarse
+                    </span>
+        </div>
+      </div>
+</div>
+

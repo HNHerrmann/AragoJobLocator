@@ -1,0 +1,12 @@
+
+  <nav style="background-color: ghostwhite;" class="navbar-nav nav-fill">
+    <div class="nav-item" style="float: right">
+      <button *ngIf="!islog" class="btn btn-light" style="margin-right: 3px; float: right" id="regBut" (click)="toRegister()">Registro</button>
+      <button *ngIf="!islog" class="btn btn-light" style="margin-right: 3px; float: right" id="loginBut" (click)="toLogin()">Login</button>
+      <button *ngIf="islog" class="btn btn-light" style="margin-right: 3px; float: right" id="logoutBut" (click)="toLogout()">Logout</button>
+      <button *ngIf="islog" class="btn btn-light" style="margin-right: 3px; float: right" id="accountBut" (click)="toAccount()">Mi Cuenta</button>
+      <button *ngIf="islog" class="btn btn-light" style="margin-right: 3px; float: right" id="listBut" (click)="toList()">Listado</button>
+      <button class="btn btn-light" style="margin-right: 3px; float: right" id="initBut" (click)="toInicio()">Inicio</button>
+    </div>
+  </nav>
+
