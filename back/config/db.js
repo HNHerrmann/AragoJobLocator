@@ -199,7 +199,7 @@ const updateDBData = async ()=> {
     console.log(lastUpISO+' < '+yesterdayISO);
 
     let output = '';
-    url = 'https://opendata.aragon.es/GA_OD_Core/preview?view_id=305&filter_sql=fecha_publicacion=%22' + lastUpVal + '%22&_page=1'
+    url = 'https://opendata.aragon.es/GA_OD_Core/preview?view_id=305&filters={%22fecha_publicacion%22:%22' + lastUpVal + '%22}'
     const req = https.get(url, (res) => {
       console.log(lastUpVal+` : ${res.statusCode}`);
       console.log(url);
@@ -213,24 +213,24 @@ const updateDBData = async ()=> {
         let array = [Oferta];
         let obj = JSON.parse(output);
         console.log('Obtenidas ' + obj.length + ' entradas');
-        for (let i = 1; i < obj.length; i++) {
-          if (obj[i][9] != null && obj[i][10] != null) {//Si las fechas de presentacion son no nulas, que las hay
+        for (let i = 0; i < obj.length; i++) {
+          if (obj[i].fecha_inicio_presentacion != null && obj[i].fecha_fin_presentacion != null) {//Si las fechas de presentacion son no nulas, que las hay
 
             let ofertaToInsert = new Oferta({
-              fuente: obj[i][0],
-              f_publicacion: stringDatetoISODate(obj[i][1]),
-              tipo: obj[i][2],
-              denominacion: obj[i][3],
-              convocante: obj[i][4],
-              url: obj[i][5],
-              f_inicioPresentacion: stringDatetoISODate(obj[i][9]),
-              f_finPresentacion: stringDatetoISODate(obj[i][10]),
-              contacto: obj[i][13],
-              titulo: obj[i][15],
-              plazas: obj[i][20],
-              filters: filterService.obtainFilters(obj[i][0], obj[i][4])
+              fuente: obj[i].fuente,
+              f_publicacion: stringDatetoISODate(obj[i].fecha_publicacion),
+              tipo: obj[i].tipo,
+              denominacion: obj[i].denominacion,
+              convocante: obj[i].organo_convocante,
+              url: obj[i].enlace,
+              f_inicioPresentacion: stringDatetoISODate(obj[i].fecha_inicio_presentacion),
+              f_finPresentacion: stringDatetoISODate(obj[i].fecha_fin_presentacion),
+              contacto: obj[i].datos_contacto,
+              titulo: obj[i].titulo,
+              plazas: obj[i].num_plazas_detectado,
+              filters: filterService.obtainFilters(obj[i].fuente, obj[i].organo_convocante)
             });
-            console.log('Procesano ' + i + ' de ' + obj.length);
+            console.log('Procesando ' + i + ' de ' + obj.length);
             array.push(ofertaToInsert);
           }
         }
@@ -270,7 +270,7 @@ const updateDBData = async ()=> {
       });
     });
     req.end();
-  };
+  }
   //updateDBData();
   });
 }
