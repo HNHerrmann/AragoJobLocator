@@ -56,7 +56,9 @@ export class PerfilConfComponent implements OnInit {
     if(array.length==0) {
     }
     else {
-      this.http.post('http://localhost:3000' + '/perfilConf/filters',array).subscribe(
+      this.http.post('http://localhost:3000' + '/perfilConf/filters',array,{
+        withCredentials:true
+      }).subscribe(
         (resp: any) => {
           console.log(resp);
         },

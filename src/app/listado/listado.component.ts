@@ -77,6 +77,12 @@ export class ListadoComponent implements OnInit {
         (resp: any) => {
           console.log(resp);
           this.listado = resp;
+          resp.forEach(offer =>
+          {
+            offer.f_publicacion=this.transformDate(offer.f_publicacion).toLocaleDateString();
+            offer.f_inicioPresentacion=this.transformDate(offer.f_inicioPresentacion).toLocaleDateString();
+            offer.f_finPresentacion=this.transformDate(offer.f_finPresentacion).toLocaleDateString();
+          });
           this.listado_len = this.listado.length;
           if(resp.length==0){this.nores=true;}
         },
@@ -89,6 +95,12 @@ export class ListadoComponent implements OnInit {
         (resp: any) => {
           console.log(resp);
           this.listado = resp;
+          resp.forEach(offer =>
+          {
+            offer.f_publicacion=this.transformDate(offer.f_publicacion).toLocaleDateString();
+            offer.f_inicioPresentacion=this.transformDate(offer.f_inicioPresentacion).toLocaleDateString();
+            offer.f_finPresentacion=this.transformDate(offer.f_finPresentacion).toLocaleDateString();
+          });
           this.listado_len = this.listado.length;
           if(resp.length==0){this.nores=true;}
         },
@@ -96,6 +108,18 @@ export class ListadoComponent implements OnInit {
           console.error(error);
         });
     }
+
+  }
+  transformDate(offerDate: string){
+    let date = new Date()
+    let parts = offerDate.split('T');
+    console.log(parts)
+    let dayparts = parts[0].split('-');
+    console.log(dayparts)
+    date.setDate(Number(dayparts[2]))
+    date.setMonth(Number(dayparts[1])-1)
+    date.setFullYear(Number(dayparts[0]))
+    return date;
 
   }
 
