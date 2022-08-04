@@ -5,6 +5,7 @@ const listadoController = require('../controllers/listadoController')
 /* Post with register data */
 router.get('/', listadoController.getOffersNoParam);
 router.post('/', listadoController.getOffersParam);
+router.post('/crearOferta',listadoController.createOffer);
 
 
 

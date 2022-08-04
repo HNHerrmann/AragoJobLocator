@@ -24,10 +24,10 @@ function obtainFilters(fuente,convocante) {
     }
   }
 
-  if(convocante.includes('UNIVERSIDAD')){
+  if(convocante.toUpperCase().includes('UNIVERSIDAD')){
     array.push("Universidad");
   }
-  if(convocante.includes('AYUNTAMIENTO')){
+  if(convocante.toUpperCase().includes('AYUNTAMIENTO')){
     array.push("Ayuntamiento");
   }
   return array;

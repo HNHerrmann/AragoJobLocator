@@ -16,7 +16,7 @@ export class OfertaC{
   // creador: string;
   fuente: string;
   f_publicacion: Date;
-  type: string;
+  tipo: string;
   url: string;
   f_inicioPresentacion: Date;
   f_finPresentacion: Date;

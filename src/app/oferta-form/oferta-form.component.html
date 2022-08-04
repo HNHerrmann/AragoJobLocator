@@ -2,39 +2,66 @@
 <div class="container-fluid form-group" style="width: max-content">
   <div class="row justify-content-center" style="margin-top: 20%">
     <div class="col-md-auto">
-      <label class="input-group-label">Título <span style="color: crimson">*</span>
+      <label class="input-group-label">Puesto <span style="color: crimson">*</span>
         <br>
-        <input class="form-control" type="text" placeholder="Título" name="titulo" [(ngModel)]="titulo"  required></label>
-      <span *ngIf="true" style="color: crimson">
-               <br> Usuario no existe
+        <input class="form-control" type="text" placeholder="Puesto" name="puesto" [(ngModel)]="denomincion"  required></label>
+      <span *ngIf="showPuestoError" style="color: crimson">
+               <br> Campo Obligatorio
           </span>
     </div>
     <div class="col-md-auto">
       <label class="input-group-label">Convocante <span style="color: crimson">*</span>
         <br>
         <input class="form-control" type="text" placeholder="Convocante" name="convocante" [(ngModel)]="convocante"  required></label>
-      <span *ngIf="false" style="color: crimson">
-               <br> Usuario no existe
+      <span *ngIf="showConvocanteError" style="color: crimson">
+               <br> Campo Obligatorio
           </span>
     </div>
   </div>
+
   <div class="row justify-content-center" style="margin-top: 7%">
     <div class="col-md-auto">
-      <label class="input-group-label">Tipo <span style="color: crimson">*</span>
+      <label class="input-group-label">Plazas
         <br>
-        <input class="form-control"type="text" placeholder="Tipo" name="tipo" [(ngModel)]="tipo">
-      </label>
+        <input class="form-control" type="number" placeholder="Plazas" name="plazas" [(ngModel)]="plazas"></label>
+    </div>
+    <div class="col-md-auto">
+      <label class="input-group-label">URL
+        <br>
+        <input class="form-control" type="url" placeholder="url" name="url" [(ngModel)]="url"></label>
     </div>
   </div>
+
+  <div class="row justify-content-center"  style="margin-top: 7%">
+    <div class="col-md-auto">
+      <label class="input-group-label">Tipo de la oferta <span style="color: crimson">*</span></label>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-auto" >
+      <div class="btn-group btn-group-toggle">
+        <label class="btn btn-info" ngbButtonLabel>
+          <input type="checkbox" ngbButton [(ngModel)]="tipoSelect.libre"> Libre
+        </label>
+        <label class="btn btn-info" ngbButtonLabel>
+          <input type="checkbox" ngbButton [(ngModel)]="tipoSelect.interna"> Interna
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center" >
+    <div class="col-md-auto">
+            <span *ngIf="showTipoError" style="color: crimson">
+                   <br> Campo Obligatorio
+            </span>
+    </div>
+  </div>
+
   <div class="row justify-content-center" style="margin-top: 7%">
     <div class="col-md-auto">
-      <label class="input-group-label">Denominacion <span style="color: crimson">*</span>
+      <label class="input-group-label">Contacto adicional
         <br>
-        <textarea  class="form-control" type="text"   placeholder="denominación" name="denominacion" [(ngModel)]="denomincion"></textarea>
-        <span *ngIf="showDenomError" style="color: crimson">
-               <br> Campo Obligatorio
-        </span>
-      </label>
+        <input class="form-control" type="text" placeholder="Contacto" name="contacto" [(ngModel)]="contacto"></label>
     </div>
   </div>
 
@@ -43,7 +70,7 @@
       <label class="input-group-label">Fecha Inicio Presentación <span style="color: crimson">*</span>
         <br>
         <input class="form-control" type="date" placeholder="Fecha Inicio" name="inicio" [(ngModel)]="f_inicioPresentacion"  required></label>
-      <span *ngIf="showFFinError" style="color: crimson">
+      <span *ngIf="showFInitError" style="color: crimson">
                <br> Campo Obligatorio
           </span>
     </div>
@@ -51,30 +78,13 @@
       <label class="input-group-label">Fecha Fin Presentación <span style="color: crimson">*</span>
         <br>
         <input class="form-control" type="date" placeholder="Fecha Fin" name="fin" [(ngModel)]="f_finPresentacion"  required></label>
-      <span *ngIf="showFInitError" style="color: crimson">
+      <span *ngIf="showFFinError" style="color: crimson">
                <br> Campo Obligatorio
           </span>
     </div>
   </div>
 
-  <div class="row justify-content-center" style="margin-top: 7%">
-    <div class="col-md-auto">
-      <label class="input-group-label">Plazas <span style="color: crimson">*</span>
-        <br>
-        <input class="form-control" type="number" placeholder="Plazas" name="plazas" [(ngModel)]="plazas"  required></label>
-      <span *ngIf="false" style="color: crimson">
-               <br> Usuario no existe
-          </span>
-    </div>
-    <div class="col-md-auto">
-      <label class="input-group-label">URL <span style="color: crimson">*</span>
-        <br>
-        <input class="form-control" type="url" placeholder="url" name="url" [(ngModel)]="url"  required></label>
-      <span *ngIf="false" style="color: crimson">
-               <br> Usuario no existe
-          </span>
-    </div>
-  </div>
+
 
   <div class="row justify-content-center" style="margin-top: 7%">
     <div class="col-md-auto">
