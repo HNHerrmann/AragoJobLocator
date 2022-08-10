@@ -13,7 +13,7 @@ export class OfertaC{
   contacto: string;
   denominacion: string;
   convocante: string;
-  // creador: string;
+  creadorID: string;
   fuente: string;
   f_publicacion: Date;
   tipo: string;
@@ -22,4 +22,5 @@ export class OfertaC{
   f_finPresentacion: Date;
   titulo: string;
   plazas: number;
+  createdByUser: boolean;
 }

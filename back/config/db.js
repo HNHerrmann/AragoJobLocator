@@ -121,7 +121,8 @@ const primerPobladoBD = async ()=> {
             contacto: obj[i][13],
             titulo: obj[i][15],
             plazas: obj[i][20],
-            filters: filterService.obtainFilters(obj[i][0],obj[i][4])
+            filters: filterService.obtainFilters(obj[i][0],obj[i][4]),
+            createdByUser: false
           });
           console.log('Procesano '+i+' de '+obj.length);
           array.push(ofertaToInsert);
@@ -228,7 +229,8 @@ const updateDBData = async ()=> {
               contacto: obj[i].datos_contacto,
               titulo: obj[i].titulo,
               plazas: obj[i].num_plazas_detectado,
-              filters: filterService.obtainFilters(obj[i].fuente, obj[i].organo_convocante)
+              filters: filterService.obtainFilters(obj[i].fuente, obj[i].organo_convocante),
+              createdByUser: false
             });
             console.log('Procesando ' + i + ' de ' + obj.length);
             array.push(ofertaToInsert);

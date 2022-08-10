@@ -19,6 +19,8 @@ var registroRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
 var listadoRouter = require('./routes/listado');
 var perfilConfRouter = require('./routes/perfilConf');
+var perfilRouter = require('./routes/perfil');
+
 
 
 var CronJob = require('cron').CronJob;
@@ -76,6 +78,8 @@ app.use('/registro', registroRouter);
 app.use('/login',loginRouter);
 app.use('/listado',listadoRouter);
 app.use('/perfilConf',perfilConfRouter);
+app.use('/perfil',perfilRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

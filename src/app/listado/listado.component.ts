@@ -75,13 +75,24 @@ export class ListadoComponent implements OnInit {
     if(array.length==0) {
       this.http.get('http://localhost:3000' + '/listado').subscribe(
         (resp: any) => {
-          console.log(resp);
+          //console.log(resp);
           this.listado = resp;
           resp.forEach(offer =>
           {
             offer.f_publicacion=this.transformDate(offer.f_publicacion).toLocaleDateString();
             offer.f_inicioPresentacion=this.transformDate(offer.f_inicioPresentacion).toLocaleDateString();
             offer.f_finPresentacion=this.transformDate(offer.f_finPresentacion).toLocaleDateString();
+            if(offer.createdByUser){
+              this.http.post('http://localhost:3000' + '/users/name',{username:offer.fuente}).subscribe(
+                (resp: any) => {
+                  console.log(resp);
+                  offer.creadorID = resp.id;
+                },
+                (error: HttpErrorResponse) => {
+                  console.error(error);
+                }
+              );
+            }
           });
           this.listado_len = this.listado.length;
           if(resp.length==0){this.nores=true;}
@@ -100,6 +111,17 @@ export class ListadoComponent implements OnInit {
             offer.f_publicacion=this.transformDate(offer.f_publicacion).toLocaleDateString();
             offer.f_inicioPresentacion=this.transformDate(offer.f_inicioPresentacion).toLocaleDateString();
             offer.f_finPresentacion=this.transformDate(offer.f_finPresentacion).toLocaleDateString();
+            if(offer.createdByUser){
+              this.http.post('http://localhost:3000' + '/users/name',{username:offer.fuente}).subscribe(
+                (resp: any) => {
+                  console.log(resp);
+                  offer.creadorID = resp.id;
+                },
+                (error: HttpErrorResponse) => {
+                  console.error(error);
+                }
+              );
+            }
           });
           this.listado_len = this.listado.length;
           if(resp.length==0){this.nores=true;}
@@ -113,9 +135,9 @@ export class ListadoComponent implements OnInit {
   transformDate(offerDate: string){
     let date = new Date()
     let parts = offerDate.split('T');
-    console.log(parts)
+    //console.log(parts)
     let dayparts = parts[0].split('-');
-    console.log(dayparts)
+    //console.log(dayparts)
     date.setDate(Number(dayparts[2]))
     date.setMonth(Number(dayparts[1])-1)
     date.setFullYear(Number(dayparts[0]))

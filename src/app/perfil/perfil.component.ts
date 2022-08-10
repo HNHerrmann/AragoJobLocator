@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {Router,ActivatedRoute, ParamMap} from "@angular/router";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-perfil',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilComponent implements OnInit {
 
-  constructor() { }
+  userId$: Observable<String>;
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
+    console.log(this.route.params)
+    const userId = this.route.snapshot.paramMap.get('userId');
+    console.log(this.route.snapshot.paramMap)
+    console.log(userId)
   }
 
 }

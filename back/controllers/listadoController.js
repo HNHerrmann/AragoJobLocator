@@ -36,7 +36,7 @@ exports.getOffersParam = function (req, res )  {
 
 exports.createOffer = function (req, res, next) {
   const {fuente, f_publicacion, tipo, denominacion, convocante, url, f_inicioPresentacion,
-    f_finPresentacion, contacto, titulo, plazas, filters} = req.body;
+    f_finPresentacion, contacto, titulo, plazas, filters, createdByUser} = req.body;
 
     let newOffer = new Offer({
       fuente: req.session.username,
@@ -50,7 +50,8 @@ exports.createOffer = function (req, res, next) {
       contacto: contacto,
       titulo: titulo,
       plazas: plazas,
-      filters: filterService.obtainFilters(fuente,convocante)
+      filters: filterService.obtainFilters(fuente,convocante),
+      createdByUser: createdByUser
     });
 
     if(newOffer.valueOf().denominacion==null || newOffer.valueOf().denominacion==""){

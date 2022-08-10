@@ -12,6 +12,7 @@ import {RegistroComponent} from './registro/registro.component';
 import {StatsComponent} from './stats/stats.component';
 
 
+
 const routes: Routes = [
   { path: 'conversacion', component: ConversacionComponent },
   { path: 'gestionUsers', component: GestionUsersComponent },
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'listado', component: ListadoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'oferta', component: OfertaFormComponent },
-  { path: 'perfil', component: PerfilComponent },
+  { path: 'perfil/:userId', component: PerfilComponent },
   { path: 'perfilConf', component: PerfilConfComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'stats', component: StatsComponent },

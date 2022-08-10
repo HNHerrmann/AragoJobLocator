@@ -83,7 +83,8 @@ export class OfertaFormComponent implements OnInit {
       contacto: this.contacto,
       titulo : this.denomincion,
       plazas: this.plazas,
-      filters: null
+      filters: null,
+      createdByUser: true
     };
 
     console.log(this.tipoSelect.interna)

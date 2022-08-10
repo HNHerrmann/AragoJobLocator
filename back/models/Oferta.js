@@ -43,6 +43,9 @@ const ofertaSchema = new Schema({
   },
   filters: {
     type: [String],
+  },
+  createdByUser: {
+    type: Boolean
   }
 });
 
