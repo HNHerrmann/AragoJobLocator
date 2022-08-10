@@ -1,2 +1,19 @@
 <app-header></app-header>
-<p>perfil works!</p>
+<p>perfil works! {{usuarioId}}</p>
+
+
+<div *ngIf="islog && isAdmin" class="row justify-content-center" style="margin-top: 7%">
+  <div class="col-md-auto">
+    <button class="btn btn-danger" id="usersBut" style="width: 250px" (click)="openModal(template)"> Borrar Usuario </button>
+  </div>
+</div>
+
+
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Confirmar Borrado</p>
+    <button type="button" class="btn btn-danger" (click)="confirm()" >Borrar</button>
+    <button type="button" class="btn btn-secondary" (click)="decline()" >Cerrar</button>
+  </div>
+</ng-template>

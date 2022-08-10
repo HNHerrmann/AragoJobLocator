@@ -118,7 +118,8 @@ export class ListadoComponent implements OnInit {
                   offer.creadorID = resp.id;
                 },
                 (error: HttpErrorResponse) => {
-                  console.error(error);
+                  console.log(error);
+                  offer.creadorID = null;
                 }
               );
             }

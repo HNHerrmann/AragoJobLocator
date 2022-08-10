@@ -5,4 +5,6 @@ const userController = require('../controllers/userController')
 
 /* GET users listing. */
 router.post('/name', userController.userByName);
+router.post('/delete', userController.borrarUsuario);
+
 module.exports = router;

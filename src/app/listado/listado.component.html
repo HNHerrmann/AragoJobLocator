@@ -89,9 +89,14 @@
           <label class="input-group-label">Fuente :<span style="color: crimson">{{item.fuente}}</span>
           </label>
         </div>
-        <div *ngIf="item.createdByUser" class="col-md-5">
-          <span>Fuente: </span><a href="http://localhost:4200/perfil/{{item.creadorID}}">{{item.fuente}}</a>
-        </div>
+
+          <div *ngIf="item.createdByUser && item.creadorID!=null" class="col-md-5">
+            <span>Fuente: </span><a href="http://localhost:4200/perfil/{{item.creadorID}}">{{item.fuente}}</a>
+          </div>
+          <div *ngIf="item.createdByUser && item.creadorID==null" class="col-md-5">
+            <span>Fuente: </span><span style="color: crimson">Usuario Eliminado</span>
+          </div>
+
         <div class="col-md-5">
           <label class="input-group-label">Publicado:<span style="color: crimson">{{item.f_publicacion}}</span>
           </label>
