@@ -9,7 +9,7 @@ exports.borrarUsuario = function (req, res, next) {
     User.deleteOne({_id: userId}, function (err, user) {
       if (user) {
         console.log(user)
-        return res.status(200).send({message: "deleted"});
+        return res.redirect('back');
       }
     })
   }
@@ -30,3 +30,22 @@ exports.userByName = function (req, res, next) {
     }
   })
 };
+
+exports.getUsersNoParam = function (req,res,next) {
+  User.find({}).sort('username').collation({ "locale": "es", "caseLevel": true, "strength":2 }).exec((err,users) => {
+    console.log(users)
+    return res.status(200).send(users);
+  })
+};
+
+exports.getUsersParam= function (req,res,next){
+  const { name } = req.body;
+
+  User.find({username: new RegExp(name,'i')}).sort('username').collation({ "locale": "es", "caseLevel": true, "strength":2 }).exec((err,users) => {
+    users.forEach(function(user, index,offers){
+      console.log(user)
+    });
+    return res.status(200).send(users);
+  })
+
+  }

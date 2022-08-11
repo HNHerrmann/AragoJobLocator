@@ -24,3 +24,10 @@ export class OfertaC{
   plazas: number;
   createdByUser: boolean;
 }
+
+export class UserC{
+  email: String;
+  selfilters: String[];
+  username: String;
+  _id: String;
+}

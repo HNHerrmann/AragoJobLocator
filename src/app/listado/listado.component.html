@@ -37,7 +37,13 @@
 <br>
 <br>
 
-<p *ngIf="nores">No se han encontrado resultados</p>
+<div *ngIf="nores" class="row justify-content-center" >
+  <div class="col-md-auto">
+    <span style="color: crimson">
+      <br> No se han encontrado resultados
+    </span>
+  </div>
+</div>
 <ngb-accordion [closeOthers]="true" activeIds="static-1" style="align-content: center;width: 50%">
   <ngb-panel *ngFor="let item of listado | slice: (page-1) * pageSize : page * pageSize" title="{{item.denominacion}}" style="alignment: center;width: 80%" >
     <ng-template ngbPanelContent>
@@ -105,6 +111,7 @@
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
+<div class="row justify-content-center" style="margin-top: 2%">
   <ngb-pagination *ngIf="listado_len > 0"[collectionSize]="listado_len" [(page)]="page" [boundaryLinks]="true" style="margin-left: auto;margin-right: auto">
     <ng-template ngbPaginationPages let-page let-pages="pages">
       <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
@@ -133,3 +140,4 @@
       </li>
     </ng-template>
   </ngb-pagination>
+</div>
