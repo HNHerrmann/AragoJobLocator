@@ -19,12 +19,22 @@ export class PerfilComponent implements OnInit {
   islog : Boolean
   isAdmin : Boolean
 
+  titulo: String
+  contenido: String
+
+  showSuccess: boolean
+  showError: boolean
+
 
 
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private modalService: BsModalService) {}
 
   ngOnInit(): void {
+    this.showSuccess = false;
+    this.showError = false;
+
+
     const userId = this.route.snapshot.paramMap.get('userId');
     this.usuarioId=this.route.snapshot.paramMap.get('userId');
 
@@ -51,13 +61,22 @@ export class PerfilComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
+  openModal2(template: TemplateRef<any>) {
+    this.showSuccess=false
+    this.showError=false
+    this.modalRef = this.modalService.show(template, {class: 'modal-lg'});
+  }
+
   confirm(): void {
     this.deleteUser()
     this.modalRef?.hide();
   }
 
-  decline(): void {
+  confirmMsj(): void {
+    this.createConvo()
+  }
 
+  decline(): void {
     this.modalRef?.hide();
   }
 
@@ -70,7 +89,48 @@ export class PerfilComponent implements OnInit {
         console.log(error.message)
       }
     );
-
   }
+
+  createConvo() {
+
+    const newConvoData = { // Objeto convo enviado
+      last_date: new Date(),
+      titulo : this.titulo,
+      participante_1: null,
+      participante_2: null,
+      mensajes: [{
+        emisor: null,
+        contenido: this.contenido,
+        fecha_msj: new Date()
+      }]
+    };
+
+    this.http.post('http://localhost:3000' + '/users/id',{userId:this.usuarioId}).subscribe(
+      (resp: any) => {
+        console.log(resp);
+        newConvoData.participante_1 = resp.username;
+        this.http.post('http://localhost:3000' + '/msj/create',newConvoData, {withCredentials: true} ).subscribe(
+          (resp: any) => {
+            this.showSuccess = true;
+            setTimeout(() => {
+              this.modalRef?.hide();
+            }, 1000);
+          },
+          (error: HttpErrorResponse) => {
+            this.showError = true;
+            console.log(error.message)
+          }
+        );
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.showError = true;
+        setTimeout(() => {
+          this.modalRef?.hide();
+        }, 1000);
+      }
+    );
+  }
+
 
 }

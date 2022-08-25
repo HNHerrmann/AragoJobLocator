@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {OfertaC} from "../app.component";
+import {MensajeC, OfertaC} from "../app.component";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {last} from "rxjs/operators";
+import {moment} from "ngx-bootstrap/chronos/testing/chain";
+
+const FILTER_PAG_REGEX = /[^0-9]/g;
 
 @Component({
   selector: 'app-perfil-conf',
@@ -15,11 +19,65 @@ export class PerfilConfComponent implements OnInit {
   }
   locfil: string;
 
+  listado : [MensajeC]
+  listado_len : number;
+  nores : boolean;
+  page: number;
+  pageSize: number;
+
+  lastChecked: Date
+
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.extrafil.ayuntamiento=false;
     this.extrafil.universidad=false;
+    this.page=1;
+    this.pageSize=10;
+
+    this.lastChecked= new Date()
+
+    this.http.get('http://localhost:3000' + '/users/date',{withCredentials: true}).subscribe(
+      (resp: any) => {
+        console.log(resp);
+        console.log(resp.length)
+        if(resp.last_check!=null) {
+          this.lastChecked = resp.last_check;
+          console.log(resp.last_check)
+          console.log(this.lastChecked)
+        }
+        });
+    console.log(this.lastChecked)
+    this.http.get('http://localhost:3000' + '/msj/userId',{withCredentials: true}).subscribe(
+      (resp: any) => {
+        console.log(resp);
+        resp.forEach(mensajes =>
+        {
+          mensajes.last_date=(new Date (mensajes.last_date).toISOString())
+          console.log(mensajes.last_date)
+          mensajes.mensajes.forEach(mensaje =>
+            {
+              mensaje.fecha_msj = new Date (mensaje.fecha_msj).toLocaleString();
+            }
+          );
+          this.http.post('http://localhost:3000' + '/users/name',{username:mensajes.participante_1}).subscribe(
+              (resp: any) => {
+                console.log(resp);
+                mensajes.creadorID = resp.id;
+              },
+              (error: HttpErrorResponse) => {
+                console.error(error);
+              }
+            );
+        });
+        this.listado = resp;
+        this.listado_len = this.listado.length;
+        console.log(this.listado_len)
+        if(resp.length==0){this.nores=true;}
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      });
   }
 
 
@@ -69,4 +127,59 @@ export class PerfilConfComponent implements OnInit {
 
   }
 
+  selectPage(page: string) {
+    this.page = parseInt(page, 10) || 1;
+  }
+
+  formatInput(input: HTMLInputElement) {
+    input.value = input.value.replace(FILTER_PAG_REGEX, '');
+  }
+
+  alertar() {
+    alert("test")
+  }
+
+  updateCheck() {
+    let now = new Date()
+    this.http.post('http://localhost:3000' + '/perfilConf/date', {date:now},{
+      withCredentials:true
+    }).subscribe(
+      (resp: any) => {
+        console.log(resp);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      });
+
+  }
+
+  isPrevious(lastChecked: Date, last_date: Date) {
+    console.log(new Date (lastChecked).getTime())
+    console.log(new Date (last_date).getTime())
+
+    console.log(new Date (lastChecked))
+    console.log(new Date (last_date))
+    return new Date (lastChecked).getTime()<new Date (last_date).getTime()
+  }
+
+  swapDate(msjDate: Date){
+    let number
+    number = msjDate.getMonth()
+    msjDate.setMonth(msjDate.getDate()-1)
+    msjDate.setDate(number+1)
+    return msjDate
+  }
+
+  transformDate(offerDate: string){
+    let date = new Date()
+    let parts = offerDate.split('T');
+    //console.log(parts)
+    let dayparts = parts[0].split('-');
+    //console.log(dayparts)
+    date.setDate(Number(dayparts[2]))
+    date.setMonth(Number(dayparts[1])-1)
+    date.setFullYear(Number(dayparts[0]))
+    return date;
+
+  }
 }

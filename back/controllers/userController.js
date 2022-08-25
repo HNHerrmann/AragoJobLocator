@@ -19,7 +19,7 @@ exports.borrarUsuario = function (req, res, next) {
 
 };
 
-exports.userByName = function (req, res, next) {
+exports.idByName = function (req, res, next) {
 
   const {username} = req.body;
 
@@ -30,6 +30,28 @@ exports.userByName = function (req, res, next) {
     }
   })
 };
+exports.nameById = function (req, res, next) {
+
+  const {userId} = req.body;
+
+  User.findOne({_id: userId}, function (err, user) {
+    if (user) {
+      console.log(user)
+      return res.status(200).send({username:user.username});
+    }
+  })
+};
+
+exports.lastCheck = function (req, res, next) {
+
+  User.findOne({username: req.session.username}, function (err, user) {
+    if (user) {
+      console.log(user)
+      return res.status(200).send({last_check:user.last_check});
+    }
+  })
+};
+
 
 exports.getUsersNoParam = function (req,res,next) {
   User.find({}).sort('username').collation({ "locale": "es", "caseLevel": true, "strength":2 }).exec((err,users) => {

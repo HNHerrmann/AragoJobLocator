@@ -31,3 +31,19 @@ export class UserC{
   username: String;
   _id: String;
 }
+
+export class MensajeC{
+  titulo: String;
+  participante_1: String;
+  creadorID: String;
+  participante_2: String;
+  last_date: Date;
+  mensajes: MensajeContentC[];
+}
+
+export class MensajeContentC{
+  emisor: String;
+  contenido: String;
+  fecha_msj: Date;
+}
+

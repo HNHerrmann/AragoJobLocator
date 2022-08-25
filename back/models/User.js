@@ -20,7 +20,10 @@ const userSchema = new Schema({
   },
   selfilters: [{
     type: String,
-  }]
+  }],
+  last_check: {
+    type:Date,
+  }
 });
 
 module.exports = mongoose.model("User", userSchema);
