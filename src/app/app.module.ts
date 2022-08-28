@@ -4,7 +4,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,7 @@ import { GestionUsersComponent } from './gestion-users/gestion-users.component';
 import { HeaderComponent } from './header/header.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule} from "@angular/forms";
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -37,17 +38,18 @@ import {FormsModule} from "@angular/forms";
     GestionUsersComponent,
     HeaderComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ButtonsModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
-    NgbModule,
-    FormsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ButtonsModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        TooltipModule.forRoot(),
+        ModalModule.forRoot(),
+        NgbModule,
+        FormsModule,
+        HttpClientModule,
+        ChartsModule
+    ],
   exports : [BsDropdownModule,ButtonsModule,TooltipModule,ModalModule],
   providers: [],
   bootstrap: [AppComponent]

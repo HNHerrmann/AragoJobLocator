@@ -1,2 +1,45 @@
 <app-header></app-header>
-<p>stats works!</p>
+
+<nav ngbNav #nav="ngbNav" class="nav-tabs" >
+  <ng-container ngbNavItem>
+    <a ngbNavLink>Ofertas por Dia</a>
+    <ng-template ngbNavContent>
+      <div class="flex">
+        <div class="flex-item">
+          <div *ngIf="true" class="chart-wrapper">
+            <canvas baseChart
+                    [datasets]="lineChartDataNOffersDay"
+                    [labels]="lineChartLabelsNOffersDay"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    [plugins]="lineChartPlugins">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+  <ng-container ngbNavItem>
+    <a ngbNavLink>Nº Ofertas por Filtro</a>
+    <ng-template ngbNavContent>
+      <div class="flex">
+        <div class="flex-item">
+          <div class="chart-wrapper">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</nav>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

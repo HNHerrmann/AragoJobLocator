@@ -47,3 +47,8 @@ export class MensajeContentC{
   fecha_msj: Date;
 }
 
+export class StatOffersCount{
+  _id: string;
+  count: number;
+}
+

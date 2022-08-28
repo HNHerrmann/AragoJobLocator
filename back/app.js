@@ -21,6 +21,7 @@ var listadoRouter = require('./routes/listado');
 var perfilConfRouter = require('./routes/perfilConf');
 var perfilRouter = require('./routes/perfil');
 var mensajeRouter = require('./routes/mensaje');
+var statsRouter = require('./routes/stats');
 
 
 
@@ -81,6 +82,7 @@ app.use('/listado',listadoRouter);
 app.use('/perfilConf',perfilConfRouter);
 app.use('/perfil',perfilRouter);
 app.use('/msj',mensajeRouter);
+app.use('/stats',statsRouter);
 
 
 // catch 404 and forward to error handler
