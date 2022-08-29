@@ -28,6 +28,9 @@ exports.idByName = function (req, res, next) {
       console.log(user)
       return res.status(200).send({id:user._id.toString()});
     }
+    else{
+      return res.status(200).send({length:0})
+    }
   })
 };
 exports.nameById = function (req, res, next) {
