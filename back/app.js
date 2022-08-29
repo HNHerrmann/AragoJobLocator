@@ -39,7 +39,7 @@ const store = new MongoDBStore({
 });
 
 app.use(cors({origin: [
-    "http://localhost:4200"
+    "https://aragojoblocator.herokuapp.com"
   ], credentials: true}));
 
 
