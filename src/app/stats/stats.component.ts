@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { StatOffersCount} from "../app.component";
+import {BackURL} from "../../../urls";
 //import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -62,7 +63,7 @@ export class StatsComponent implements OnInit {
     this.labelsBar=[]
     this.datasetBar=[]
 
-    this.http.get('http://localhost:3000' + '/stats/offersCreated',{withCredentials: true}).subscribe(
+    this.http.get(BackURL + '/stats/offersCreated',{withCredentials: true}).subscribe(
       (resp: any) => {
         console.log(resp);
         console.log(resp.length)
@@ -98,7 +99,7 @@ export class StatsComponent implements OnInit {
       });
 
 
-    this.http.get('http://localhost:3000' + '/stats/offersFilters',{withCredentials: true}).subscribe(
+    this.http.get(BackURL + '/stats/offersFilters',{withCredentials: true}).subscribe(
       (resp: any) => {
         console.log(resp);
         this.listadoBar = resp;

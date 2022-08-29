@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {BackURL} from "../../../urls";
 
 
 @Component({
@@ -103,7 +104,7 @@ export class OfertaFormComponent implements OnInit {
       }
     }
 
-    this.http.post('http://localhost:3000' + '/listado/crearOferta', ofertaData,{withCredentials: true} ).subscribe(
+    this.http.post(BackURL + '/listado/crearOferta', ofertaData,{withCredentials: true} ).subscribe(
       (resp: any) => {
         console.log('resp');
         console.log(resp);

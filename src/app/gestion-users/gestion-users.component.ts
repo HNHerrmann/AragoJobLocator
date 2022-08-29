@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {OfertaC,UserC} from "../app.component";
+import {BackURL} from "../../../urls.js"
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
@@ -36,7 +37,7 @@ export class GestionUsersComponent implements OnInit {
   getListUsers() {
     this.nores=false;
     if(this.user==null) {
-      this.http.get('http://localhost:3000' + '/users/getUsers').subscribe(
+      this.http.get(BackURL + '/users/getUsers').subscribe(
         (resp: any) => {
           //console.log(resp);
           this.users = resp;
@@ -48,7 +49,7 @@ export class GestionUsersComponent implements OnInit {
         });
     }
     else {
-      this.http.post('http://localhost:3000' + '/users/getUsers',{name:this.user}).subscribe(
+      this.http.post(BackURL + '/users/getUsers',{name:this.user}).subscribe(
         (resp: any) => {
           console.log(resp);
           this.users = resp;

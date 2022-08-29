@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {BackURL} from "../../../urls";
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
         password: this.password,
       };
 
-      this.http.post('http://localhost:3000' + '/login', userData,{withCredentials: true} ).subscribe(
+      this.http.post(BackURL + '/login', userData,{withCredentials: true} ).subscribe(
         (resp: any) => {
           console.log('resp');
           console.log(resp);

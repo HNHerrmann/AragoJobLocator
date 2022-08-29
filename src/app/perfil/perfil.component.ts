@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Router,ActivatedRoute, ParamMap} from "@angular/router";
 import { Observable } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {BackURL} from "../../../urls";
 
 @Component({
   selector: 'app-perfil',
@@ -39,7 +40,7 @@ export class PerfilComponent implements OnInit {
     this.usuarioId=this.route.snapshot.paramMap.get('userId');
 
     this.isAdmin=false;
-    this.http.get('http://localhost:3000' + '/login', {withCredentials: true} ).subscribe(
+    this.http.get(BackURL + '/login', {withCredentials: true} ).subscribe(
       (resp: any) => {
         if(resp.message=="Logueado"){
           this.islog=true;
@@ -81,7 +82,7 @@ export class PerfilComponent implements OnInit {
   }
 
   deleteUser() {
-    this.http.post('http://localhost:3000' + '/users/delete',{userId:this.usuarioId}, {withCredentials: true} ).subscribe(
+    this.http.post(BackURL + '/users/delete',{userId:this.usuarioId}, {withCredentials: true} ).subscribe(
       (resp: any) => {
         console.log("Borrado")
       },
@@ -105,11 +106,11 @@ export class PerfilComponent implements OnInit {
       }]
     };
 
-    this.http.post('http://localhost:3000' + '/users/id',{userId:this.usuarioId}).subscribe(
+    this.http.post(BackURL + '/users/id',{userId:this.usuarioId}).subscribe(
       (resp: any) => {
         console.log(resp);
         newConvoData.participante_1 = resp.username;
-        this.http.post('http://localhost:3000' + '/msj/create',newConvoData, {withCredentials: true} ).subscribe(
+        this.http.post(BackURL + '/msj/create',newConvoData, {withCredentials: true} ).subscribe(
           (resp: any) => {
             this.showSuccess = true;
             setTimeout(() => {

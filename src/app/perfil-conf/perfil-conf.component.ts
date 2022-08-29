@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {last} from "rxjs/operators";
 import {moment} from "ngx-bootstrap/chronos/testing/chain";
+import {BackURL} from "../../../urls";
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
@@ -37,7 +38,7 @@ export class PerfilConfComponent implements OnInit {
 
     this.lastChecked= new Date()
 
-    this.http.get('http://localhost:3000' + '/users/date',{withCredentials: true}).subscribe(
+    this.http.get(BackURL + '/users/date',{withCredentials: true}).subscribe(
       (resp: any) => {
         console.log(resp);
         console.log(resp.length)
@@ -48,7 +49,7 @@ export class PerfilConfComponent implements OnInit {
         }
         });
     console.log(this.lastChecked)
-    this.http.get('http://localhost:3000' + '/msj/userId',{withCredentials: true}).subscribe(
+    this.http.get(BackURL + '/msj/userId',{withCredentials: true}).subscribe(
       (resp: any) => {
         console.log(resp);
         resp.forEach(mensajes =>
@@ -60,7 +61,7 @@ export class PerfilConfComponent implements OnInit {
               mensaje.fecha_msj = new Date (mensaje.fecha_msj).toLocaleString();
             }
           );
-          this.http.post('http://localhost:3000' + '/users/name',{username:mensajes.participante_1}).subscribe(
+          this.http.post(BackURL + '/users/name',{username:mensajes.participante_1}).subscribe(
               (resp: any) => {
                 console.log(resp);
                 mensajes.creadorID = resp.id;
@@ -114,7 +115,7 @@ export class PerfilConfComponent implements OnInit {
     if(array.length==0) {
     }
     else {
-      this.http.post('http://localhost:3000' + '/perfilConf/filters',array,{
+      this.http.post(BackURL + '/perfilConf/filters',array,{
         withCredentials:true
       }).subscribe(
         (resp: any) => {
@@ -141,7 +142,7 @@ export class PerfilConfComponent implements OnInit {
 
   updateCheck() {
     let now = new Date()
-    this.http.post('http://localhost:3000' + '/perfilConf/date', {date:now},{
+    this.http.post(BackURL + '/perfilConf/date', {date:now},{
       withCredentials:true
     }).subscribe(
       (resp: any) => {

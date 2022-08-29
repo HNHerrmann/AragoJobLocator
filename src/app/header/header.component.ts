@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {HttpClient, HttpErrorResponse, HttpParams, HttpResponse} from '@angular/common/http';
-
+import {BackURL} from "../../../urls.js"
 import {request} from "express";
 
 @Component({
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:3000' + '/login', {withCredentials: true} ).subscribe(
+    this.http.get(BackURL + '/login', {withCredentials: true} ).subscribe(
       (resp: any) => {
         if(resp.message=="Logueado" || resp.message=="AdminRight"){
           this.islog=true;
@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toLogout() {
-      this.http.post('http://localhost:3000' + '/login/logout', {}, {
+      this.http.post(BackURL + '/login/logout', {}, {
         withCredentials: true
       }).subscribe(() => {
         this.islog=false;

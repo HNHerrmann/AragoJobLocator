@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams, HttpResponse} from '@angular/common/http';
 import {Router} from "@angular/router";
+import {BackURL} from "../../../urls";
 
 
 @Component({
@@ -44,7 +45,7 @@ export class RegistroComponent implements OnInit {
         repepassword: this.repepassword
       };
 
-      this.http.post('http://localhost:3000' + '/registro', newUser).subscribe(
+      this.http.post(BackURL + '/registro', newUser).subscribe(
         (resp: any) => { // comprobar estado: 201 recurso creado, 409 error por repetición de user
           console.log(resp);
           this.showSuccess = true;

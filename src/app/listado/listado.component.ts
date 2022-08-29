@@ -3,6 +3,7 @@ import {OfertaC} from "../app.component";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {newArray} from "@angular/compiler/src/util";
+import {BackURL} from "../../../urls";
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
@@ -73,7 +74,7 @@ export class ListadoComponent implements OnInit {
       }
     }
     if(array.length==0) {
-      this.http.get('http://localhost:3000' + '/listado').subscribe(
+      this.http.get(BackURL + '/listado').subscribe(
         (resp: any) => {
           //console.log(resp);
           this.listado = resp;
@@ -83,7 +84,7 @@ export class ListadoComponent implements OnInit {
             offer.f_inicioPresentacion=this.transformDate(offer.f_inicioPresentacion).toLocaleDateString();
             offer.f_finPresentacion=this.transformDate(offer.f_finPresentacion).toLocaleDateString();
             if(offer.createdByUser){
-              this.http.post('http://localhost:3000' + '/users/name',{username:offer.fuente}).subscribe(
+              this.http.post(BackURL + '/users/name',{username:offer.fuente}).subscribe(
                 (resp: any) => {
                   console.log(resp);
                   offer.creadorID = resp.id;
