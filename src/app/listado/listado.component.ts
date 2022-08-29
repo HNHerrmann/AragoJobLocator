@@ -103,7 +103,7 @@ export class ListadoComponent implements OnInit {
         });
     }
     else {
-      this.http.post('http://localhost:3000' + '/listado',array).subscribe(
+      this.http.post(BackURL + '/listado',array).subscribe(
         (resp: any) => {
           console.log(resp);
           this.listado = resp;
@@ -113,7 +113,7 @@ export class ListadoComponent implements OnInit {
             offer.f_inicioPresentacion=this.transformDate(offer.f_inicioPresentacion).toLocaleDateString();
             offer.f_finPresentacion=this.transformDate(offer.f_finPresentacion).toLocaleDateString();
             if(offer.createdByUser){
-              this.http.post('http://localhost:3000' + '/users/name',{username:offer.fuente}).subscribe(
+              this.http.post(BackURL + '/users/name',{username:offer.fuente}).subscribe(
                 (resp: any) => {
                   console.log(resp);
                   offer.creadorID = resp.id;
