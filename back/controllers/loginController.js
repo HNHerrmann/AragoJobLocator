@@ -31,7 +31,7 @@ exports.login = function (req, res, next )  {
       if(user.admin){req.session.Admin = true;}
     req.session.isAuth = true;
     req.session.username = user.username;
-    return res.status(200).send({message: "Logeado"});
+    return res.status(200).send({message: "Logueado"});
     }
   });
 };
