@@ -85,8 +85,11 @@ export class ListadoComponent implements OnInit {
             if(offer.createdByUser){
               this.http.post('http://localhost:3000' + '/users/name',{username:offer.fuente}).subscribe(
                 (resp: any) => {
-                  console.log(resp);
-                  offer.creadorID = resp.id;
+                  console.log(resp.length)
+                  if(resp.length!=0) {
+                    offer.creadorID = resp.id;
+                    console.log(resp.id);
+                  }
                 },
                 (error: HttpErrorResponse) => {
                   console.error(error);
@@ -114,8 +117,11 @@ export class ListadoComponent implements OnInit {
             if(offer.createdByUser){
               this.http.post('http://localhost:3000' + '/users/name',{username:offer.fuente}).subscribe(
                 (resp: any) => {
-                  console.log(resp);
-                  offer.creadorID = resp.id;
+                  console.log(resp.length)
+                  if(resp.length!=0) {
+                    offer.creadorID = resp.id;
+                    console.log(resp.id);
+                  }
                 },
                 (error: HttpErrorResponse) => {
                   console.log(error);
