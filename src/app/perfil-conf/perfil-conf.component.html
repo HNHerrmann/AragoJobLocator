@@ -39,6 +39,20 @@
           <button class="btn btn-secondary" type="submit" (click)="saveFilters()"> Guardar Mis Filtros </button>
         </div>
       </div>
+      <div *ngIf="showFilterSuccess" class="row justify-content-center" style="margin-top: 4%">
+        <div class="col-md-auto">
+          <span style="color: green">
+            Guardado con éxito
+          </span>
+        </div>
+      </div>
+      <div *ngIf="showFilterError" class="row justify-content-center" style="margin-top: 4%">
+        <div class="col-md-auto">
+          <span style="color: red">
+            Error al guardar filtros
+          </span>
+        </div>
+      </div>
     </ng-template>
   </ng-container>
   <ng-container ngbNavItem>
@@ -107,15 +121,59 @@
     </ng-template>
   </ng-container>
   <ng-container ngbNavItem>
-    <a ngbNavLink>Three</a>
+    <a ngbNavLink>Mis Datos Perfil</a>
     <ng-template ngbNavContent>
-      <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi.
-        Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio.
-        Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna,
-        egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec
-        tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et
-        magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget
-        neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+      <div class="container-fluid form-group" style="width: max-content">
+        <div class="row justify-content-center" style="margin-top: 30%">
+          <div class="col-4">
+          </div>
+          <div class="col-md-auto">
+            <label class="input-group-label">Nombre
+              <br>
+              <input class="form-control" type="text" placeholder="{{nombrePlaceholder}}" name="nombre" [(ngModel)]="nombre"></label>
+          </div>
+        </div>
+        <div>
+        </div>
+        <div class="row justify-content-center" style="margin-top: 7%">
+          <div class="col-4">
+          </div>
+          <div class="col-md-auto">
+            <label class="input-group-label">Apellido
+              <br>
+              <input class="form-control"type="text" placeholder="{{apellidoPlaceholder}}" name="apellido" [(ngModel)]="apellido">
+            </label>
+          </div>
+        </div>
+        <div class="row justify-content-center" style="margin-top: 7%">
+          <div class="col-11">
+            <label class="input-group-label">Informacion Adicional
+              <br>
+              <textarea class="form-control" cols="max" rows="7" placeholder="{{comentarioAdicionalPlaceholder}}" name="extrainfo" [(ngModel)]="comentarioAdicional">
+              </textarea>
+            </label>
+          </div>
+        </div>
+        <div class="row justify-content-center" style="margin-top: 7%">
+          <div class="col-md-auto">
+            <button class="btn btn-secondary" type="submit" id="profileBut" (click)="saveProfile()"> Guardar datos </button>
+          </div>
+        </div>
+        <div *ngIf="showPerfilSuccess" class="row justify-content-center" style="margin-top: 4%">
+          <div class="col-md-auto">
+          <span style="color: green">
+            Guardado con éxito
+          </span>
+          </div>
+        </div>
+        <div *ngIf="showPerfilError" class="row justify-content-center" style="margin-top: 4%">
+          <div class="col-md-auto">
+          <span style="color: red">
+            Error al guardar filtros
+          </span>
+          </div>
+        </div>
+      </div>
     </ng-template>
   </ng-container>
 </nav>

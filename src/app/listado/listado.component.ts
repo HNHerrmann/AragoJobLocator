@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {OfertaC} from "../app.component";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {newArray} from "@angular/compiler/src/util";
 import {BackURL} from "../../../urls";
 
@@ -25,9 +25,29 @@ export class ListadoComponent implements OnInit {
   }
   locfil: string;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  islog : Boolean
+  isAdmin : Boolean
+
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.isAdmin=false;
+    this.http.get('http://localhost:3000' + '/login', {withCredentials: true} ).subscribe(
+      (resp: any) => {
+        if(resp.message=="Logueado"){
+          this.islog=true;
+        }
+        else {
+          if(resp.message=="AdminRight"){
+            this.islog=true;
+            this.isAdmin=true;
+          }
+          else{
+            this.islog=false;
+          }
+        }
+      });
+
     this.page=1;
     this.pageSize=10;
     this.extrafil.ayuntamiento=false;
@@ -150,6 +170,53 @@ export class ListadoComponent implements OnInit {
     date.setMonth(Number(dayparts[1])-1)
     date.setFullYear(Number(dayparts[0]))
     return date;
+
+  }
+
+  getListadoOwnFilters() {
+    this.http.get('http://localhost:3000' + '/users/filters',{withCredentials: true}).subscribe(
+      (resp: any) => {
+        console.log(resp);
+        console.log(resp.length)
+        this.extrafil.ayuntamiento=false;
+        this.extrafil.universidad=false;
+        this.locfil="No"
+        if(resp.length!=0) {
+          let array = []
+          array=resp.filtros
+          for (let i = 0; i < array.length; i++) {
+            switch (array[i]) {
+              case("Zaragoza"): {
+                this.locfil = 'Zaragoza';
+                break;
+              }
+              case("Huesca"): {
+                this.locfil = 'Huesca';
+                break;
+              }
+              case("Teruel"): {
+                this.locfil = 'Teruel';
+                break;
+              }
+              case("Ayuntamiento"): {
+                this.extrafil.ayuntamiento = true;
+                break;
+              }
+              case("Universidad"): {
+                this.extrafil.universidad = true
+                break;
+              }
+              default: {
+                break;
+              }
+            }
+          }
+        }
+        this.getListado()
+      },
+    (error: HttpErrorResponse) => {
+      console.error(error);
+    });
 
   }
 

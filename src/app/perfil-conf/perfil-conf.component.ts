@@ -28,6 +28,18 @@ export class PerfilConfComponent implements OnInit {
 
   lastChecked: Date
 
+  nombre: String;
+  apellido: String;
+  comentarioAdicional: String;
+  nombrePlaceholder: String;
+  apellidoPlaceholder: String;
+  comentarioAdicionalPlaceholder: String;
+
+  showFilterSuccess : boolean;
+  showFilterError : boolean;
+  showPerfilSuccess : boolean;
+  showPerfilError : boolean;
+
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
@@ -37,6 +49,19 @@ export class PerfilConfComponent implements OnInit {
     this.pageSize=10;
 
     this.lastChecked= new Date()
+
+    this.nombre=null;
+    this.apellido=null;
+    this.comentarioAdicional=null;
+    this.nombrePlaceholder="Nombre";
+    this.apellidoPlaceholder="Apellido";
+    this.comentarioAdicionalPlaceholder="Comentarios extra";
+
+    this.showFilterSuccess=false;
+    this.showFilterError=false;
+    this.showPerfilSuccess=false;
+    this.showPerfilError=false;
+
 
     this.http.get(BackURL + '/users/date',{withCredentials: true}).subscribe(
       (resp: any) => {
@@ -79,6 +104,19 @@ export class PerfilConfComponent implements OnInit {
       (error: HttpErrorResponse) => {
         console.error(error);
       });
+
+    this.http.get(BackURL + '/perfilConf/profile',{withCredentials: true}).subscribe(
+      (resp: any) => {
+        console.log(resp);
+        console.log(resp.length)
+        if(resp.length!=0) {
+          let json = resp.profile
+          if(json.nom!=null && json.nom!=""){this.nombrePlaceholder=json.nom}
+          if(json.apellido!=null && json.apellido!=""){this.apellidoPlaceholder=json.apellido}
+          if(json.adicional!=null && json.adicional!=""){this.comentarioAdicionalPlaceholder=json.adicional}
+          console.log(json)
+        }
+      });
   }
 
 
@@ -120,9 +158,59 @@ export class PerfilConfComponent implements OnInit {
       }).subscribe(
         (resp: any) => {
           console.log(resp);
+          this.showFilterSuccess = true;
+          setTimeout(() => {
+            this.showFilterSuccess = false;
+          }, 2000);
         },
         (error: HttpErrorResponse) => {
           console.error(error);
+          this.showFilterError = true;
+          setTimeout(() => {
+            this.showFilterError = false;
+          }, 2000);
+        });
+    }
+
+  }
+
+
+  saveProfile() {
+    console.log('In this.saveProfile()')
+    let json
+    json = {
+      nom:'',
+      apellido:'',
+      adicional:''
+    };
+    if(this.nombre!=null){
+      json.nom=this.nombre;
+    }
+    if(this.apellido!=null){
+      json.apellido=this.apellido;
+    }
+    if(this.comentarioAdicional!=null){
+      json.adicional=this.comentarioAdicional;
+    }
+    console.log(json);
+    if(json.nom=='' && json.apellido=='' && json.adicional=='') {
+    }
+    else {
+      this.http.post(BackURL + '/perfilConf/profile',json,{
+        withCredentials:true
+      }).subscribe(
+        (resp: any) => {
+          this.showPerfilSuccess = true;
+          setTimeout(() => {
+            this.showPerfilSuccess = false;
+          }, 2000);
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+          this.showPerfilError = true;
+          setTimeout(() => {
+            this.showPerfilError = false;
+          }, 2000);
         });
     }
 

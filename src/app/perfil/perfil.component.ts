@@ -26,6 +26,13 @@ export class PerfilComponent implements OnInit {
   showSuccess: boolean
   showError: boolean
 
+  userNombre: String
+  userApellido: String
+  userComentario: String
+  userFiltrosString: String
+
+  noUser: boolean
+
 
 
 
@@ -34,6 +41,16 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
     this.showSuccess = false;
     this.showError = false;
+
+    this.userNombre = null;
+    this.userApellido = null;
+    this.userComentario = null;
+    this.userFiltrosString = null;
+
+    this.noUser = false;
+
+
+
 
 
     const userId = this.route.snapshot.paramMap.get('userId');
@@ -54,6 +71,38 @@ export class PerfilComponent implements OnInit {
             this.islog=false;
           }
         }
+      });
+
+    this.http.post('http://localhost:3000' + '/perfil/user', {userId:this.usuarioId}).subscribe(
+      (resp: any) => {
+        console.log(resp);
+        if(resp.length!=0){
+          let json = {}
+          let filters = []
+          if(resp.hasOwnProperty('perfil')){
+            json = resp.perfil
+            if(json.hasOwnProperty('nom')){this.userNombre=resp.perfil.nom}
+            if(json.hasOwnProperty('apellido')){this.userApellido=resp.perfil.apellido}
+            if(json.hasOwnProperty('adicional')){this.userComentario=resp.perfil.adicional}
+          }
+          if(resp.hasOwnProperty('filtros')){
+            filters=resp.filtros
+            for (let i = 0; i <filters.length ; i++) {
+              if(i==0){
+                this.userFiltrosString=resp.filtros[i]
+              }
+              else{
+                this.userFiltrosString= this.userFiltrosString.concat(", ",resp.filtros[i])
+              }
+            }
+          }
+        }
+        else{
+          this.noUser=true
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
       });
 
   }
