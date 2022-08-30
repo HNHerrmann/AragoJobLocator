@@ -73,7 +73,7 @@ export class PerfilComponent implements OnInit {
         }
       });
 
-    this.http.post('http://localhost:3000' + '/perfil/user', {userId:this.usuarioId}).subscribe(
+    this.http.post(BackURL + '/perfil/user', {userId:this.usuarioId}).subscribe(
       (resp: any) => {
         console.log(resp);
         if(resp.length!=0){

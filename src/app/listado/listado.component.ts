@@ -32,7 +32,7 @@ export class ListadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAdmin=false;
-    this.http.get('http://localhost:3000' + '/login', {withCredentials: true} ).subscribe(
+    this.http.get(BackURL + '/login', {withCredentials: true} ).subscribe(
       (resp: any) => {
         if(resp.message=="Logueado"){
           this.islog=true;
@@ -174,7 +174,7 @@ export class ListadoComponent implements OnInit {
   }
 
   getListadoOwnFilters() {
-    this.http.get('http://localhost:3000' + '/users/filters',{withCredentials: true}).subscribe(
+    this.http.get(BackURL + '/users/filters',{withCredentials: true}).subscribe(
       (resp: any) => {
         console.log(resp);
         console.log(resp.length)
