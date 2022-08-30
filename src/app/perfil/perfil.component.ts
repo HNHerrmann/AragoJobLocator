@@ -133,6 +133,7 @@ export class PerfilComponent implements OnInit {
     this.http.post('http://localhost:3000' + '/users/delete',{userId:this.usuarioId}, {withCredentials: true} ).subscribe(
       (resp: any) => {
         console.log("Borrado")
+        this.router.navigate(['gestionUsers'])
       },
       (error: HttpErrorResponse) => {
         console.log(error.message)
