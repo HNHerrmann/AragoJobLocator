@@ -10,6 +10,7 @@ router.post('/delete', userController.borrarUsuario);
 router.post('/getUsers',userController.getUsersParam);
 router.get('/getUsers',userController.getUsersNoParam);
 router.get('/date',userController.lastCheck);
+router.get('/filters',userController.filtersByName);
 
 
 module.exports = router;

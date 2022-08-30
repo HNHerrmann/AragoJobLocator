@@ -33,6 +33,9 @@
   <div class="col-md-auto">
     <button class="btn btn-secondary" type="submit" (click)="getListado()"> Buscar </button>
   </div>
+  <div *ngIf="islog" class="col-md-auto">
+    <button class="btn btn-secondary" type="submit" (click)="getListadoOwnFilters()"> Buscar con mis filtros</button>
+  </div>
 </div>
 <br>
 <br>

@@ -1,60 +1,93 @@
 <app-header></app-header>
-<p>perfil works! {{usuarioId}}</p>
-
-<div *ngIf="islog" class="row justify-content-center" style="margin-top: 7%">
+<div *ngIf="noUser" class="row justify-content-center" style="margin-top: 7%">
   <div class="col-md-auto">
-    <button class="btn btn-secondary" id="convoBut" style="width: 250px" (click)="openModal2(templateconvo)"> Enviar Mensaje </button>
+          <span style="color: red">
+            Usuario no existe o ha sido borrado
+          </span>
   </div>
 </div>
-
-<div *ngIf="islog && isAdmin" class="row justify-content-center" style="margin-top: 4%">
-  <div class="col-md-auto">
-    <button class="btn btn-danger" id="usersBut" style="width: 250px" (click)="openModal(template)"> Borrar Usuario </button>
+<div *ngIf="!noUser">
+  <div class="row justify-content-center" style="margin-top: 7%">
+    <div class="col-md-auto">
+      <h4>Perfil de </h4>
+    </div>
   </div>
-</div>
-
-
-<ng-template #template>
-  <div class="modal-body text-center">
-    <p>Confirmar Borrado</p>
-    <button type="button" class="btn btn-danger" (click)="confirm()" >Borrar</button>
-    <button type="button" class="btn btn-secondary" (click)="decline()" >Cerrar</button>
+  <div class="row justify-content-center" style="margin-top: 1%">
+    <div class="col-md-auto">
+      <span *ngIf="userNombre!=null"  style="color: crimson">{{userNombre}}</span> <span *ngIf="userNombre!=null && userApellido!=null">, </span><span *ngIf="userApellido!=null" style="color: crimson">{{userApellido}}</span>
+    </div>
   </div>
-</ng-template>
+  <div class="row justify-content-center" style="margin-top: 1%">
+    <div class="col-md-auto">
+        <p>{{userComentario}}</p>
+    </div>
+  </div>
+  <div class="row justify-content-center" style="margin-top: 2%">
+    <div class="col-md-auto">
+      <h4>Filtros favoritos </h4>
+    </div>
+  </div>
+  <div class="row justify-content-center" style="margin-top: 1%">
+    <div class="col-md-auto">
+        <p>{{userFiltrosString}}</p>
+    </div>
+  </div>
 
-<ng-template #templateconvo>
-  <div class="modal-body text-center">
-    <div class="container-fluid form-group" style="width: max-content">
-      <div class="row">
-        <div class="col-12">
-          <div class="input-group input-group-lg" style="margin-top: 7%">
-            <input class="form-control input-lg" type="text" style="width: max-content" placeholder="Asunto" name="titulo" [(ngModel)]="titulo"  required>
+  <div *ngIf="islog" class="row justify-content-center" style="margin-top: 7%">
+    <div class="col-md-auto">
+      <button class="btn btn-secondary" id="convoBut" style="width: 250px" (click)="openModal2(templateconvo)"> Enviar Mensaje </button>
+    </div>
+  </div>
+
+  <div *ngIf="islog && isAdmin" class="row justify-content-center" style="margin-top: 4%">
+    <div class="col-md-auto">
+      <button class="btn btn-danger" id="usersBut" style="width: 250px" (click)="openModal(template)"> Borrar Usuario </button>
+    </div>
+  </div>
+
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Confirmar Borrado</p>
+      <button type="button" class="btn btn-danger" (click)="confirm()" >Borrar</button>
+      <button type="button" class="btn btn-secondary" (click)="decline()" >Cerrar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #templateconvo>
+    <div class="modal-body text-center">
+      <div class="container-fluid form-group" style="width: max-content">
+        <div class="row">
+          <div class="col-12">
+            <div class="input-group input-group-lg" style="margin-top: 7%">
+              <input class="form-control input-lg" type="text" style="width: max-content" placeholder="Asunto" name="titulo" [(ngModel)]="titulo"  required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="input-group input-group-lg" style="margin-top: 7%">
+              <textarea class="form-control" cols="6" rows="10" style="width: max-content" placeholder="Mensaje" name="contenido" [(ngModel)]="contenido" required></textarea>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="input-group input-group-lg" style="margin-top: 7%">
-            <textarea class="form-control" cols="6" rows="10" style="width: max-content" placeholder="Mensaje" name="contenido" [(ngModel)]="contenido" required></textarea>
-          </div>
-        </div>
+      <button type="button" class="btn btn-success" (click)="confirmMsj()" >Enviar</button>
+      <button type="button" class="btn btn-secondary" (click)="decline()" >Cerrar</button>
+    </div>
+    <div *ngIf="showSuccess" class="row justify-content-center" style="margin-top: 7%">
+      <div class="col-md-auto">
+          <span style="color: green">
+            Mensaje enviado con éxito.
+          </span>
       </div>
     </div>
-    <button type="button" class="btn btn-success" (click)="confirmMsj()" >Enviar</button>
-    <button type="button" class="btn btn-secondary" (click)="decline()" >Cerrar</button>
-  </div>
-  <div *ngIf="showSuccess" class="row justify-content-center" style="margin-top: 7%">
-    <div class="col-md-auto">
-        <span style="color: green">
-          Mensaje enviado con éxito.
-        </span>
+    <div *ngIf="showError" class="row justify-content-center" style="margin-top: 7%">
+      <div class="col-md-auto">
+          <span style="color: red">
+            Error al enviar mensaje
+          </span>
+      </div>
     </div>
-  </div>
-  <div *ngIf="showError" class="row justify-content-center" style="margin-top: 7%">
-    <div class="col-md-auto">
-        <span style="color: red">
-          Error al enviar mensaje
-        </span>
-    </div>
-  </div>
-</ng-template>
+  </ng-template>
+</div>
