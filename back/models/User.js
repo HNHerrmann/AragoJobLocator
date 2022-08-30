@@ -23,6 +23,9 @@ const userSchema = new Schema({
   }],
   last_check: {
     type:Date,
+  },
+  perfil: {
+    type:JSON,
   }
 });
 

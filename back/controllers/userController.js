@@ -33,6 +33,22 @@ exports.idByName = function (req, res, next) {
     }
   })
 };
+
+exports.filtersByName = function (req, res) {
+  if (req.session.isAuth) {
+
+    User.findOne({username: req.session.username}, function (err, user,next) {
+      if (user) {
+        console.log(user)
+        return res.status(200).send({filtros:user.selfilters});
+      } else {
+        return res.status(200).send({length: 0})
+      }
+    })
+  } else{ return res.status(200).send({length: 0})}
+};
+
+
 exports.nameById = function (req, res, next) {
 
   const {userId} = req.body;
