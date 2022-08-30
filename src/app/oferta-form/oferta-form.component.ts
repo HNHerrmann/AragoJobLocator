@@ -109,6 +109,9 @@ export class OfertaFormComponent implements OnInit {
         console.log('resp');
         console.log(resp);
         this.showSuccess = true;
+        setTimeout(() => {
+          this.router.navigate(['inicio']);
+        }, 3000);
       },
       (error: HttpErrorResponse) => {
         if (error.error == "Puesto nulo") {

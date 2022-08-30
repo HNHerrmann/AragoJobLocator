@@ -9,7 +9,7 @@ exports.borrarUsuario = function (req, res, next) {
     User.deleteOne({_id: userId}, function (err, user) {
       if (user) {
         console.log(user)
-        return res.redirect('back');
+        return res.status(200).send({message: "redirect"});
       }
     })
   }
